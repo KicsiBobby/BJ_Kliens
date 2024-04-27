@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bj.HelloController">
+   <children>
+      <StackPane fx:id="Pane" prefHeight="150.0" prefWidth="1200.0">
+         <children>
+            <Arc fill="#208630" length="180.0" radiusX="600.0" radiusY="700.0" scaleY="0.88" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" translateY="-44.0" type="ROUND" />
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@2H.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@2H.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="PlayerCards">
+               <children>
+                  <ImageView fx:id="Lap1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="450.0">
+                     <image>
+                        <Image url="@QS.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="Lap2" fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" translateX="430.0" translateY="430.0">
+                     <image>
+                        <Image url="@QS.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label fx:id="PlayerÉrték" text="0" translateY="280.0" />
+         </children>
+      </StackPane>
+      <Label fx:id="Tet" text="Tét: 0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" style="-fx-background-color: grey;">
+         <children>
+            <Label fx:id="zsOsszeg" text="Összeg: 0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" onMouseClicked="#OnClick100" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@100.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#OnClick50" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" onMouseClicked="#OnClick25" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@25.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#OnClick5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@5.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button fx:id="Hit" mnemonicParsing="false" onAction="#OnHitPressed" prefWidth="75.0" text="Hit" />
+                  <Button mnemonicParsing="false" prefWidth="75.0" text="Stand" />
+                  <Button layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#OnResetPressed" prefWidth="75.0" text="Reset" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="144.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="IP:">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="ServerIp" prefHeight="25.0" prefWidth="117.0" text="25.49.193.131" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="csatlakoz" prefWidth="117.0" text="50000" />
+                        <Button mnemonicParsing="false" onAction="#Join" text="Csatlakozás" />
+                     </children>
+                  </HBox>
+                  <Button layoutX="52.0" layoutY="82.0" mnemonicParsing="false" onAction="#Join" prefWidth="75.0" text="Bet" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="25.0" />
+         </VBox.margin></HBox>
+   </children>
+</VBox>
