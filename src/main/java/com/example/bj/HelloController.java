@@ -38,7 +38,7 @@ public class HelloController {
     DatagramSocket socket = null;
     private int zseton = 0;
     private int tet = 0;
-    private String ip = "25.0.64.20";
+    private String ip = "10.201.2.4";
     private int port = 678;
     private String lap="";
 
@@ -176,7 +176,7 @@ public class HelloController {
 
     private void onFogad(String uzenet){
         String[] u = uzenet.split(":");
-        System.out.printf(uzenet);
+        System.out.print(uzenet+"\n");
         if(u[0].equals("joined")) {
             info.setText("Csatlakozva\nTétekre vár...");
             zsOsszeg.setText("Összeg: " + zseton);
@@ -188,8 +188,14 @@ public class HelloController {
 
         }
         if(u[0].equals("balance")) {
+            if(Integer.parseInt(u[1])> zseton) {
+                info.setText("Gratulálok, nyertél!");
+            } else {
+                info.setText("Sajnálom, veszítettél.");
+            }
             zseton=Integer.parseInt(u[1]);
             zsOsszeg.setText("Összeg: " + zseton);
+
             tet=0;
             Tet.setText("Tét: " + 0);
 
@@ -206,6 +212,7 @@ public class HelloController {
 
         }
         if(u[0].equals("paid")) {
+            info.setText("Csatlakozásra vár");
             zseton=Integer.parseInt(u[1]);
             zsOsszeg.setText("Összeg: " + 0);
             PlayerCards.getChildren().clear();

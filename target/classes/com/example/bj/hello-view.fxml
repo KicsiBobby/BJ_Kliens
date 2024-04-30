@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bj.HelloController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bj.HelloController">
    <children>
       <StackPane fx:id="Pane" prefHeight="150.0" prefWidth="1200.0">
          <children>
@@ -18,7 +18,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="info" text="Csatlakozásra vár">
+            <Label fx:id="info" text="Csatlakozásra vár" translateY="-100.0">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
@@ -95,7 +95,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="ServerIp" prefHeight="25.0" prefWidth="117.0" text="25.0.64.20" />
+                        <TextField fx:id="ServerIp" prefHeight="25.0" prefWidth="117.0" text="10.201.2.4" />
                      </children>
                   </HBox>
                   <TextField fx:id="csatlakoz" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Összeg" />
