@@ -19,38 +19,42 @@ public class HelloController {
     @FXML private TextField ServerIp;
     @FXML private Label zsOsszeg;
     @FXML private Label Tet;
+    @FXML private Label info;
+    @FXML private Label PlayerErtek;
+    @FXML private Label SzerverErtek;
     @FXML private StackPane Pane;
-    @FXML private ImageView Lap1;
-    @FXML private ImageView Lap2;
     @FXML private HBox PlayerCards;
-    @FXML private Button Hit;
+    @FXML private HBox ServerCards;
     @FXML private TextField csatlakoz;
+    @FXML private Button HitGomb;
+    @FXML private Button ResetGomb;
+    @FXML private Button StandGomb;
+    @FXML private Button JoinGomb;
+    @FXML private Button BetGomb;
+    @FXML private Button ExitGomb;
+    @FXML private Button AllinGomb;
+
 
     DatagramSocket socket = null;
-
-    private String zse = csatlakoz.getText();
-    private int zseton = 500;
+    private int zseton = 0;
     private int tet = 0;
-
-
-
-    private String ip = "25.49.193.131";
+    private String ip = "25.0.64.20";
     private int port = 678;
-
-    ArrayList<String> lapok = new ArrayList<>();
-
-    private String lapbetu[]={"C","D","H","S"};
-    private String lapszam[]={"2","3","4","5","6","7","8","9","A","K","J","Q"};
-
     private String lap="";
 
+    private String Kertek="0";
+    private String Sertek="0";
 
     public void initialize() {
         try {
             socket = new DatagramSocket(678);
             zsOsszeg.setText("Összeg: " + zseton);
-            System.out.printf("%s",zse);
-
+            HitGomb.setDisable(true);
+            StandGomb.setDisable(true);
+            ResetGomb.setDisable(true);
+            BetGomb.setDisable(true);
+            ExitGomb.setDisable(true);
+            AllinGomb.setDisable(true);
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -120,41 +124,115 @@ public class HelloController {
 
     @FXML
     private void Join() {
-        kuld("join:"+String.valueOf(tet), ServerIp.getText(), 678);
-
-
+        ip = ServerIp.getText();
+        zseton= Integer.parseInt(csatlakoz.getText());
+        kuld("join:"+String.valueOf(zseton),ip, port);
     }
 
-    //private void RandomLap() {
-    //    String randomszam = lapszam[(int)(Math.random()*lapszam.length)];
-    //    String randombetu = lapbetu[(int)(Math.random()*lapbetu.length)];
-    //    lap=randomszam+randombetu;
-    //    lapok.add(randomszam+randombetu);
-    //
-    //
-    //}
-
-    double lapX=360;
-    double lapY=400;
+    double lapX=500;
+    double lapY=450;
     @FXML
     private void OnHitPressed() {
         kuld("hit",ip,port);
     }
 
-    private void onHitPressed(){
-        kuld("bet"+tet,ip,port);
+    @FXML
+    private void OnAllinPressed() {
+        tet+=zseton;
+        zseton=0;
+        zsOsszeg.setText("Összeg: " + zseton);
+        Tet.setText("Tét: " + tet);
     }
+    @FXML
+    private void onBetPressed(){
+        if(tet>=5) {
+            PlayerCards.getChildren().clear();
+            ServerCards.getChildren().clear();
+            info.setText("");
+            HitGomb.setDisable(false);
+            StandGomb.setDisable(false);
+            ResetGomb.setDisable(true);
+            BetGomb.setDisable(true);
+            ExitGomb.setDisable(true);
+            AllinGomb.setDisable(true);
+            kuld("bet:"+tet,ip,port);
+        }
+
+    }
+    @FXML
+    private void OnStandPressed() {
+        kuld("stand",ip,port);
+
+    }
+    @FXML
+    private void onExitClick() {
+        kuld("exit",ip,port);
+        SzerverErtek.setText("");
+        PlayerErtek.setText("");
+    }
+
+    //ImageView leforditott=new ImageView(new Image(getClass().getResourceAsStream("gray_back.png")));
+
 
     private void onFogad(String uzenet){
         String[] u = uzenet.split(":");
         System.out.printf(uzenet);
+        if(u[0].equals("joined")) {
+            info.setText("Csatlakozva\nTétekre vár...");
+            zsOsszeg.setText("Összeg: " + zseton);
+            ResetGomb.setDisable(false);
+            BetGomb.setDisable(false);
+            JoinGomb.setDisable(true);
+            ExitGomb.setDisable(false);
+            AllinGomb.setDisable(false);
+
+        }
+        if(u[0].equals("balance")) {
+            zseton=Integer.parseInt(u[1]);
+            zsOsszeg.setText("Összeg: " + zseton);
+            tet=0;
+            Tet.setText("Tét: " + 0);
+
+        }
+        if(u[0].equals("end")) {
+            HitGomb.setDisable(true);
+            StandGomb.setDisable(true);
+            ResetGomb.setDisable(false);
+            BetGomb.setDisable(false);
+            AllinGomb.setDisable(false);
+            ExitGomb.setDisable(false);
+            lapX=500;
+            lapY=450;
+
+        }
+        if(u[0].equals("paid")) {
+            zseton=Integer.parseInt(u[1]);
+            zsOsszeg.setText("Összeg: " + 0);
+            PlayerCards.getChildren().clear();
+            ServerCards.getChildren().clear();
+            HitGomb.setDisable(true);
+            StandGomb.setDisable(true);
+            ResetGomb.setDisable(true);
+            BetGomb.setDisable(true);
+            JoinGomb.setDisable(false);
+            AllinGomb.setDisable(true);
+        }
+
+        if(u[0].equals("ertekK")) {
+            Kertek=u[1];
+            PlayerErtek.setText(Kertek);
+        }
+        if(u[0].equals("ertekS")) {
+            Sertek=u[1];
+            SzerverErtek.setText(Sertek);
+        }
+
         if (u.length>1){
             if (u[0].equals("k")){
                 lap=u[1];
                 ImageView ujlap=new ImageView(new Image(getClass().getResourceAsStream(lap+".png")));
                 ujlap.setFitWidth(200);
                 ujlap.setFitHeight(150);
-
                 ujlap.setTranslateX(lapX);
                 ujlap.setTranslateY(lapY);
                 lapX=ujlap.getTranslateX()-70;
@@ -162,6 +240,14 @@ public class HelloController {
                 ujlap.setPreserveRatio(true);
                 PlayerCards.getChildren().add(ujlap);
 
+            }
+            if (u[0].equals("s")){
+                lap=u[1];
+                ImageView ujlap=new ImageView(new Image(getClass().getResourceAsStream(lap+".png")));
+                ujlap.setFitWidth(200);
+                ujlap.setFitHeight(150);
+                ujlap.setPreserveRatio(true);
+                ServerCards.getChildren().add(ujlap);
             }
         }
     }

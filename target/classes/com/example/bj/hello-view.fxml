@@ -12,35 +12,22 @@
       <StackPane fx:id="Pane" prefHeight="150.0" prefWidth="1200.0">
          <children>
             <Arc fill="#208630" length="180.0" radiusX="600.0" radiusY="700.0" scaleY="0.88" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" translateY="-44.0" type="ROUND" />
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@2H.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@2H.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox fx:id="PlayerCards">
-               <children>
-                  <ImageView fx:id="Lap1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="450.0">
-                     <image>
-                        <Image url="@QS.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="Lap2" fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" translateX="430.0" translateY="430.0">
-                     <image>
-                        <Image url="@QS.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <Label fx:id="PlayerÉrték" text="0" translateY="280.0" />
+            <HBox fx:id="ServerCards" alignment="TOP_CENTER" />
+            <Label fx:id="SzerverErtek" translateY="-180.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="info" text="Csatlakozásra vár">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Label>
+            <HBox fx:id="PlayerCards" />
+            <Label fx:id="PlayerErtek" translateY="280.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></Label>
          </children>
       </StackPane>
       <Label fx:id="Tet" text="Tét: 0">
@@ -48,7 +35,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" style="-fx-background-color: grey;">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="650.0" style="-fx-background-color: grey;">
          <children>
             <Label fx:id="zsOsszeg" text="Összeg: 0">
                <HBox.margin>
@@ -88,12 +75,18 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                <children>
-                  <Button fx:id="Hit" mnemonicParsing="false" onAction="#OnHitPressed" prefWidth="75.0" text="Hit" />
-                  <Button mnemonicParsing="false" prefWidth="75.0" text="Stand" />
-                  <Button layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#OnResetPressed" prefWidth="75.0" text="Reset" />
+                  <Button fx:id="HitGomb" mnemonicParsing="false" onAction="#OnHitPressed" prefWidth="75.0" text="Hit" />
+                  <Button fx:id="StandGomb" mnemonicParsing="false" onAction="#OnStandPressed" prefWidth="75.0" text="Stand" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="144.0" prefWidth="200.0">
+            <VBox alignment="CENTER" layoutX="266.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button fx:id="AllinGomb" mnemonicParsing="false" onAction="#OnAllinPressed" prefWidth="75.0" text="All in" />
+                  <Button fx:id="ResetGomb" layoutX="23.0" layoutY="85.0" mnemonicParsing="false" onAction="#OnResetPressed" prefWidth="75.0" text="Reset" />
+                  <Button fx:id="BetGomb" mnemonicParsing="false" onAction="#onBetPressed" prefWidth="75.0" text="Bet" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="144.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <HBox alignment="CENTER">
                      <children>
@@ -102,19 +95,12 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="ServerIp" prefHeight="25.0" prefWidth="117.0" text="25.49.193.131" />
+                        <TextField fx:id="ServerIp" prefHeight="25.0" prefWidth="117.0" text="25.0.64.20" />
                      </children>
                   </HBox>
-                  <HBox>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <TextField fx:id="csatlakz" prefWidth="117.0" text="50000" />
-                        <Button mnemonicParsing="false" onAction="#Join" text="Csatlakozás" />
-                     </children>
-                  </HBox>
-                  <Button layoutX="52.0" layoutY="82.0" mnemonicParsing="false" onAction="#Join" prefWidth="75.0" text="Bet" />
+                  <TextField fx:id="csatlakoz" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Összeg" />
+                  <Button fx:id="JoinGomb" mnemonicParsing="false" onAction="#Join" text="Csatlakozás" />
+                  <Button fx:id="ExitGomb" layoutX="71.0" layoutY="100.0" mnemonicParsing="false" onAction="#onExitClick" text="Kilépés" />
                </children>
             </VBox>
          </children>
